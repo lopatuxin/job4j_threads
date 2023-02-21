@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ru.job4j</groupId>
   <packaging>jar</packaging>
-  <artifactId>job4j_grabber</artifactId>
+  <artifactId>job4j_threads</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <name>job4j_grabber</name>
@@ -20,6 +20,11 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>net.jcip</groupId>
+      <artifactId>jcip-annotations</artifactId>
+      <version>1.0</version>
+    </dependency>
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
