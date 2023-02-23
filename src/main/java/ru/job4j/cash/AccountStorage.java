@@ -28,14 +28,16 @@ public class AccountStorage {
     }
 
     public synchronized boolean transfer(int fromId, int toId, int amount) {
-        Account account1 = getById(fromId).get();
-        Account account2 = getById(toId).get();
-        if (account1 != null && account2 != null) {
-            int amount1 = account1.amount();
-            int amount2 = account2.amount();
-            update(new Account(account1.id(), amount1 - amount));
-            update(new Account(account2.id(), amount2 + amount));
-            return true;
+        Account minus = getById(fromId).get();
+        Account plus = getById(toId).get();
+        if (minus != null && plus != null) {
+            if (minus.amount() >= amount) {
+                int amountMinus = minus.amount();
+                int amountPlus = plus.amount();
+                update(new Account(minus.id(), amountMinus - amount));
+                update(new Account(plus.id(), amountPlus + amount));
+                return true;
+            }
         }
         return false;
     }
