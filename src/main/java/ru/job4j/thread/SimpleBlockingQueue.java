@@ -16,7 +16,7 @@ public class SimpleBlockingQueue<T> {
         this.maxSize = maxSize;
     }
 
-    public void offer(T value) throws InterruptedException {
+    public synchronized void offer(T value) throws InterruptedException {
         synchronized (this) {
             while (queue.size() == maxSize) {
                 wait();
@@ -26,13 +26,14 @@ public class SimpleBlockingQueue<T> {
         }
     }
 
-    public T poll() throws InterruptedException {
+    public synchronized T poll() throws InterruptedException {
         synchronized (this) {
             while (queue.isEmpty()) {
                 wait();
             }
+            T result = queue.poll();
             notifyAll();
-            return queue.poll();
+            return result;
         }
     }
 }
