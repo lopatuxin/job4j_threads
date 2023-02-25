@@ -5,25 +5,24 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
 
 class CASCountTest {
-    @Test
-    void when0IncrementThen0Get() {
-        CASCount casCount = new CASCount();
-        assertThat(casCount.get()).isEqualTo(0);
-    }
 
     @Test
-    void when1IncrementThen1Get() {
+    void when3IncrementThen3Get() throws InterruptedException {
         CASCount casCount = new CASCount();
-        casCount.increment();
-        assertThat(casCount.get()).isEqualTo(1);
-    }
-
-    @Test
-    void when3IncrementThen3Get() {
-        CASCount casCount = new CASCount();
-        casCount.increment();
-        casCount.increment();
-        casCount.increment();
+        Thread first = new Thread(
+                () -> {
+                    casCount.increment();
+                    casCount.increment();
+                }
+        );
+        Thread second = new Thread(
+                () -> {
+                    casCount.increment();
+                }
+        );
+        first.start();
+        second.start();
+        Thread.sleep(3000);
         assertThat(casCount.get()).isEqualTo(3);
     }
 }
