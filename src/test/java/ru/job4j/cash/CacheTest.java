@@ -38,4 +38,11 @@ class CacheTest {
         assertThat(cache.get(model.getId()).getVersion()).isEqualTo(model.getVersion() + 1);
         assertThat(cache.get(model.getId()).getName()).isEqualTo(up.getName());
     }
+
+    @Test
+    void whenDoNotUpdateVersion() {
+        cache.add(model);
+        Base up = new Base(1, 5);
+        assertThatThrownBy(() -> cache.update(up)).hasMessageContaining("Versions are not equal");
+    }
 }
