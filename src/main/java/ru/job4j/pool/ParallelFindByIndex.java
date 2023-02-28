@@ -33,7 +33,7 @@ public class ParallelFindByIndex<T> extends RecursiveTask<Integer> {
 
     private int searchLines() {
         int result = -1;
-        for (int i = from; i < to; i++) {
+        for (int i = from; i <= to; i++) {
             if (element.equals(array[i])) {
                 result = i;
                 break;
